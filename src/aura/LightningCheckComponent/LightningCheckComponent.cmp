@@ -10,7 +10,7 @@
     -->
 
     <!--
-    사용된 Implements 관한 설명 TEST!!!!!
+    사용된 Implements 관한 설명 TEST!!!!!1
     force:appHostable : Lightning Experience 또는 Salesforce 모바일 앱에서 탐색 요소로 사용할 구성 요소를 만듭니다.(관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_devconsole_configs.htm?search_text=implements)
     flexipage:availableForAllPageTypes : 구성 요소(Component)가 레코드 페이지와 다른 유형의 페이지 모두에서 사용 가능한 경우에 화면을 표시합니다. (관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_config_for_app_builder_record_home.htm?search_text=flexipage:availableForAllPageTypes)
     forceCommunity:availableForAllPageTypes : 커뮤니티 작성기(Community Builder)에서 사용하려면 implements에 선언되어야 합니다.(관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_config_for_builder.htm?search_text=forceCommunity:availableForAllPageTypes)
