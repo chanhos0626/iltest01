@@ -1,0 +1,3 @@
+<apex:page showHeader="true" sidebar="true" standardController="Opportunity" extensions="OpportunityCloneExtension" action="{!cloneOpportunity}">
+	
+</apex:page>

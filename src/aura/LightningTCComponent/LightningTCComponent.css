@@ -1,0 +1,16 @@
+.THIS{
+    background:white;
+}
+.THIS .slds-docked-form-footer{
+    z-index: 0 !important;
+}
+.THIS .totaliconsize svg{
+    width:1rem !important;
+    height:1rem !important;
+}
+.THIS .buttons{
+    width : 12.5%;
+}
+.THIS .ClearLeft01{
+    clear:left !important;
+}

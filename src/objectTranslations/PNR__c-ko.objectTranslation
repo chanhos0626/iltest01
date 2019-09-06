@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>PNR</value>
+    </caseValues>
+    <fields>
+        <label><!-- KAL Opportunity --></label>
+        <name>KAL_Opportunity__c</name>
+        <relationshipLabel><!-- PNR --></relationshipLabel>
+    </fields>
+    <fields>
+        <label><!-- People --></label>
+        <name>People__c</name>
+    </fields>
+    <fields>
+        <label><!-- test --></label>
+        <name>test__c</name>
+    </fields>
+    <webLinks>
+        <label><!-- checkbox --></label>
+        <name>checkbox</name>
+    </webLinks>
+</CustomObjectTranslation>

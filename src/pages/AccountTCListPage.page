@@ -1,0 +1,38 @@
+<apex:page standardController="Account" extensions="AccountTCListPageController" recordSetVar="Accounts" tabStyle="Account" sidebar="false">
+    <!--<apex:slds />-->
+    <apex:form>
+        <apex:pageBlock>
+            <apex:pageBlock>
+                <apex:commandButton value="AccountTCListPage" action="{!GoToAccountTCListPage}"/>
+                <apex:commandButton value="AccountTCListPage02" action="{!GoToAccountTCListPage02}"/>
+                <apex:commandButton value="AccountTCListPage03" action="{!GoToAccountTCListPage03}"/>
+                <apex:commandButton value="AccountTCListPage04" action="{!GoToAccountTCListPage04}"/>
+            </apex:pageBlock>
+            <apex:pageMessages/>
+            <apex:pageBlock>
+                <apex:panelGrid columns="2">
+                    <apex:outputLabel value="View:"/>
+                    <apex:selectList value="{!filterId}" size="1">
+                        <apex:actionSupport event="onchange" rerender="acc_table"/>
+                        <apex:selectOptions value="{!listviewoptions}"/>
+                    </apex:selectList>
+                </apex:panelGrid>
+            </apex:pageBlock>
+            <apex:pageBlockTable value="{!Accounts}" var="account" id="acc_table">
+                <apex:column headerValue="Account Name">
+                    <apex:outputLink value="{!'/'+account.Id}">{!account.name}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Account Site">
+                    <apex:outputLink value="{!'/'+account.site}">{!account.site}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Phone">
+                    <apex:outputLink value="{!'/'+account.phone}">{!account.phone}</apex:outputLink>
+                </apex:column>
+                <apex:column headerValue="Account Owner">
+                    <apex:outputLink value="{!'/'+account.OwnerId}">{!account.Owner.name}</apex:outputLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
+

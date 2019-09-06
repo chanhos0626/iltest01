@@ -1,0 +1,45 @@
+<!--
+    @file                     : Web_Service_TC
+    @path			          : Web_Service_TC
+    @description              : Web Service를 이용하여 데이터 출력
+    @author                   : DKMBC - chanho.choi
+    @Additional modifiers     : DKMBC - chanho choi
+    @Additional revision date : 2019-01-24
+    controller                : "Web_service_TC_Controller"
+ -->
+<!--Controller 설정 및 tab 활성화-->
+<aura:component Controller="Web_service_TC_Controller" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes">
+    <!--attribute [s]-->
+    <aura:attribute name="recordIds" type="String" default=""/>
+    <aura:attribute name="data" type="sObject" default="{'Name':'','Description':''}"/>
+    <!--attribute [E]-->
+    <!--Component Load시 이벤트[S]-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <!--Component Load시 이벤트[E]-->
+    <!--Layout 선언[S]-->
+    <lightning:layout horizontalAlign="space" class="slds-var-p-around_xxx-small">
+        <lightning:layoutItem class="slds-size--11-of-12" flexibility="auto">
+            <!--RecordId 입력 필드 [S]-->
+            <lightning:input aura:id="recordIds" variant = "label-hidden" name="recordIds" class="slds-size--12-of-12" value="{!v.recordIds}"/>
+            <!--RecordId 입력 필드 [E]-->
+        </lightning:layoutItem>
+        <lightning:layoutItem class="slds-size--1-of-12" flexibility="auto">
+            <!--버튼 필드 [S]-->
+            <lightning:button class="slds-size--12-of-12" label="Web Service Check!!!!" title="Web Service Check!!!!" onclick="{!c.getSearchWebServices}"/>
+            <!--버튼 필드 [E]-->
+        </lightning:layoutItem>
+    </lightning:layout>
+    <lightning:layout >
+        <lightning:layoutItem  class="slds-size--1-of-12">
+            <!--읽기 전용 필드 [S]-->
+            <lightning:input name="input4" readonly="true" value="{!v.data.Name}" label="Name" />
+            <!--읽기 전용 필드 [E]-->
+        </lightning:layoutItem>
+        <lightning:layoutItem  class="slds-size--11-of-12">
+            <!--읽기 전용 필드 [S]-->
+            <lightning:input name="input4" readonly="true" value="{!v.data.Description}" label="Description" />
+            <!--읽기 전용 필드 [E]-->
+        </lightning:layoutItem>
+    </lightning:layout>
+    <!--Layout 선언[E]-->
+</aura:component>

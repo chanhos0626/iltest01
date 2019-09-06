@@ -1,0 +1,7 @@
+<!--
+ - Created by DKBMC on 2019-01-23.
+ - Session id 값을 lightning에서는 가져올수가 없어서 사용됨
+ -->
+<apex:page >
+    Start_Of_Session_Id{!$Api.Session_ID}End_Of_Session_Id
+</apex:page>

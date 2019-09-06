@@ -1,0 +1,98 @@
+<aura:component implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- [S] ltng:require
+    <ltng:require scripts="{!join(',',
+                           $Resource.SDI_CRM_JS + '/dist/js/sdi.vendor.js',
+                           $Resource.SDI_CRM_JS + '/dist/js/sdi.app.js'
+                           )}" afterScriptsLoaded="{!c.scriptsLoaded}" />-->
+    <!-- [E] ltng:require -->
+    <!-- [S] aura:attribute -->
+    <!-- [D] UI 테스트용 더미 데이터 -->
+    <!--init에서 전달받은 값 입력 영역-->
+    <!--<aura:attribute name="v_BO" type="Task" default="null" />
+    <aura:attribute name="v_VOC" type="Task" default="null" />
+    <aura:attribute name="v_ISSUE" type="Task" default="null" />
+    <aura:attribute name="v_BoName" type="String" default="" />
+    <aura:attribute name="Task" type="Object[]"/>-->
+    <aura:attribute name="v_BO" type="sObject" default="null" />
+    <!-- [E] aura:attribute -->
+
+    <!-- [S] aura:handler -->
+    <!--시작과 동시 contoller의 init 호출-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+    <!-- [S] spinner    
+    <lightning:spinner aura:id="spinner" variant="brand" size="large" class="slds-is-fixed"/> -->
+    <!-- [E] spinner -->
+
+    <!-- [E] aura:handler --> 
+    <div aura:id="T_CC_Task" data-component-id="T_CC_Task">
+        <div class="c-container">
+            <div class="slds-page-header slds-page-header_object-home">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="standard:task" />
+                            </div>
+                            <div class="slds-media__body">
+                                <h1 class="slds-page-header__title slds-m-right--small slds-align-middle slds-truncate" title="All Tasks">All Tasks</h1>
+                            </div>
+                            <button class="slds-button slds-button_neutral" onclick="{!v.change}">New</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-align-bottom">
+                        <p class="slds-text-body_small">{!v.v_BO.length} items • {!v.v_BO[0].What.Name}</p>
+                    </div>
+                </div>
+            </div>
+            <lightning:layout >
+                <div class="BOsectionContent">
+                    <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+                        <thead class="thead--color">
+                            <tr class="slds-text-title_caps">
+                                <th class="slds-cell-wrap No" scope="col">
+                                    <div class="slds-truncate text-center" title="No">No</div>
+                                </th>
+                                <th class="slds-cell-wrap Subject" scope="col">
+                                    <div class="slds-truncate" title="Subject">Subject</div>
+                                </th>
+                                <th class="slds-cell-wrap rem" scope="col">
+                                    <div class="slds-truncate" title="Assigned To">Assigned To</div>
+                                </th>
+                                <th class="slds-cell-wrap rem" scope="col">
+                                    <div class="slds-truncate" title="Status">Status</div>
+                                </th>
+                                <th class="slds-cell-wrap rem" scope="col">
+                                    <div class="slds-truncate" title="Due Date">Due Date</div>
+                                </th>
+                                <th class="slds-cell-wrap rem" scope="col">
+                                    <div class="slds-truncate" title="Related To">Related To</div>
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <div class="tbody">
+                        <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+                            <tbody>
+                                <aura:iteration items="{!v.v_BO}" var="item" indexVar="indexAcc">
+                                    <tr>
+                                        <th class="text-center No" scope="row" data-label="No">{!indexAcc+1}</th>
+                                        <td class="slds-truncate Subject" data-label="Subject">{!item.Subject}</td>
+                                        <td class="slds-truncate rem" data-label="Assigned To">{!item.Owner.Name}</td>
+                                        <td class="slds-truncate rem" data-label="Status">{!item.Status}</td>
+                                        <td class="slds-truncate rem" data-label="Due Date">{!item.ActivityDate}</td>
+                                        <td class="slds-truncate rem" data-label="Related To">{!item.What.Name}</td>
+                                    </tr>
+                                </aura:iteration>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div style="width:800rem;border:1px solid red;display: none;">
+                </div>
+            </lightning:layout>
+        </div>
+    </div>
+</aura:component>

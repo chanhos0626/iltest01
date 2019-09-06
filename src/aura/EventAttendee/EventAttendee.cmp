@@ -1,0 +1,77 @@
+<aura:component controller="EventAttendeeController" 
+                implements="force:lightningQuickAction,flexipage:availableForRecordHome,force:hasRecordId,force:appHostable,forceCommunity:availableForAllPageTypes" 
+                access="global" >
+    <aura:attribute name="v_userId" type="String" default="" />
+    <aura:attribute name="attendee" 
+		type="EventRelation[]"
+        access="global"                    
+        description="" />
+    <aura:attribute name="existing" 
+		type="Object[]"
+        access="global"                    
+        description="" />
+    <aura:attribute name="ownerId" 
+		type="String"
+        access="global"                    
+        description="" />
+    <aura:attribute name="accountId" 
+		type="String"
+        access="global"                    
+        description="" />
+    <aura:attribute name="Subject" 
+        type="String"
+        access="global"                    
+        description="" />
+
+    <aura:handler name="init" 
+                  value="{!this}"
+                  action="{!c.doInit}" />
+    
+    <aura:handler name="addEvent" event="c:eventAddAttendeeEvent" action="{!c.reloadAttendee}"/>
+    
+    <!--<lightning:card iconName="custom:custom15" title="{!$Label.c.EVENT_ATTENDEE_TITLE}">-->
+    <lightning:card iconName="custom:custom15" title="{!$Label.c.EVENT_ATTENDEE_TITLE+': '+v.Subject}">
+		<aura:set attribute="actions">
+			<!--<lightning:button label="{!$Label.c.EVENT_ATTENDEE_ADD}" onclick="{!c.clickAdd}"/>-->
+            <lightning:button label="ADD" onclick="{!c.clickAdd}"/>
+		</aura:set>
+		<div class="slds-card__body slds-card__body--inner">
+            <lightning:layout pullToBoundary="small" class="slds-wrap">
+
+				<aura:iteration items="{!v.attendee}" var="attendant">
+                    <lightning:layoutItem padding="horizontal-small" size="6" mediumDeviceSize="6" class="slds-m-top--x-small">
+                        <lightning:buttonMenu iconName="utility:down" 
+                                              alternativeText="Settings" 
+                                              onselect="{!c.selectMenu}"
+                                              variant="border-filled" 
+                                              iconSize="x-small" 
+                                              class="slds-float--right" >
+							<lightning:menuItem label="Delete" value="{!'delete:' + attendant.Id}" />
+                        </lightning:buttonMenu>
+                        
+                        <div class="slds-tile">
+                            <h3 class="slds-truncate primaryField">
+                                <a href="javascript:void(0);">{!attendant.Relation.Name}</a>
+                            </h3>
+                            <div class="slds-tile__detail slds-text-body--medium">
+                                <dl class="slds-list--horizontal slds-wrap">
+                                    <dt class="slds-item--label slds-truncate"><!--{!$Label.c.EVENT_ATTENDEE_STATUS}-->STATUS:</dt>
+                                    <dd class="slds-item--detail slds-truncate">{!attendant.Status}</dd>
+                                    <dt class="slds-item--label slds-truncate"><!--{!$Label.c.EVENT_ATTENDEE_RESPONSE}-->RESPONSE:</dt>
+                                    <dd class="slds-item--detail slds-truncate">{!attendant.Response}</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </lightning:layoutItem>
+				</aura:iteration>
+
+            </lightning:layout>
+        </div>
+    </lightning:card>
+    
+    <c:eventAddAttendee aura:id="addModal" 
+                        eventId="{!v.recordId}" 
+                        existing="{!v.existing}" 
+                        ownerId="{!v.ownerId}" 
+                        accountId="{!v.accountId}"/>
+</aura:component>

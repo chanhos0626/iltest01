@@ -1,0 +1,4 @@
+<aura:event type="APPLICATION" description="Event template" >
+    <!--값 전달용 attribute-->
+    <aura:attribute name="VeliId" type="String"/>
+</aura:event>

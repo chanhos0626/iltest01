@@ -1,0 +1,38 @@
+.THIS {
+}
+.THIS .slds-media__body {
+    height: 32px;
+    vertical-align: bottom;
+}
+.THIS .tbody{
+    /*height:150px;*/
+	overflow-y:scroll;
+}
+.THIS .slds-page-header__title {
+    font-size:1.4rem;
+    line-height: 32px;
+}
+.THIS .BOsectionContent{
+    width:100%;
+}
+.THIS .text-center{
+    text-align: center;
+}
+.THIS .No{
+    width:1rem !important;
+    padding-left: 0.5px !important;
+}
+.THIS .rem{
+    width:2rem !important;
+}
+.THIS .Subject{
+    width:8rem !important;
+}
+.THIS .Priority{
+    height:15px;
+    width:15px;
+    margin-left:0.5rem;
+}
+.THIS .taskstatus{
+    margin-left:5px;
+}

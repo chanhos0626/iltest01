@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>창고</value>
+    </caseValues>
+    <fields>
+        <label><!-- 지역 --></label>
+        <name>Field1__c</name>
+    </fields>
+    <fields>
+        <label><!-- 창고 --></label>
+        <name>Field2__c</name>
+        <picklistValues>
+            <masterLabel>창고1</masterLabel>
+            <translation><!-- 창고1 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>창고2</masterLabel>
+            <translation><!-- 창고2 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>창고3</masterLabel>
+            <translation><!-- 창고3 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 상태 --></label>
+        <name>Field3__c</name>
+        <picklistValues>
+            <masterLabel>판매</masterLabel>
+            <translation><!-- 판매 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>폐기</masterLabel>
+            <translation><!-- 폐기 --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>환불</masterLabel>
+            <translation><!-- 환불 --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label><!-- 제품s --></label>
+        <name>s__c</name>
+        <relationshipLabel><!-- 창고 --></relationshipLabel>
+    </fields>
+</CustomObjectTranslation>

@@ -1,0 +1,82 @@
+<apex:component controller="CommunitiesSelfRegController" id="calypso_login_form">
+<apex:form id="loginForm" forceSSL="true">
+<apex:pageMessages id="error"/>
+
+    <div class="container">
+    <h1 class="smalltitle"><span>Register</span></h1>
+        <div class="panel panel-default" style="border-left: 0px solid">
+             <div class="panel-body">
+
+        <div class="col-md-12 col-sm-12">
+            <!-- Register form -->
+            <div >
+
+                <div class="panel-body">
+                    <form role="form">
+                        <fieldset>
+
+
+                         <div class ="col-md-6"> 
+
+
+                    <div class="form-group">
+                        <label for="firstname" class="col-sm-4 control-label">First name</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                             <apex:inputText id="firstName" styleClass="form-control" html-placeholder="First name" value="{!firstName}"/>
+                        </div>
+                    </div> 
+
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-4 control-label">Last name</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+                             <apex:inputText id="lastName" styleClass="form-control" html-placeholder="Last Name" value="{!lastName}"/>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="communityusername" class="col-sm-4 control-label">Username</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-users fa-fw"></i></span>
+                             <apex:inputText required="true" id="communityNickname" styleClass="form-control" html-placeholder="Community Username" value="{!communityNickname}"/>
+                        </div>
+                    </div>
+
+                      </div> 
+                      <div class ="col-md-6"> 
+                    <div class="form-group">
+                        <label for="email" class="col-sm-4 control-label">Email</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-envelope-o  fa-fw"></i></span>
+                             <apex:inputText id="email" styleClass="form-control" html-placeholder="Email" value="{!email}"/>
+                        </div>
+                      </div>      
+                    <div class="form-group">
+                        <label for="password" class="col-sm-4 control-label">Password</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                             <apex:inputSecret id="password" styleClass="form-control" html-placeholder="Password" value="{!password}"/>
+                        </div>
+                    </div>   
+                     <div class="form-group">
+                        <label for="confirmpassword" class="col-sm-4 control-label">Confirm password</label>
+                           <div class="input-group margin-bottom-sm">
+                             <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                             <apex:inputSecret id="confirmPassword" styleClass="form-control" html-placeholder="Password" value="{!confirmPassword}"/>
+                        </div>
+                      </div>
+                    </div> 
+                            <apex:commandButton action="{!registerUser}" value="{!$Label.site.submit}" id="submit" styleClass="btn btn-default center-block center-block " />
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+       </div>
+      </div>
+    </div>
+</apex:form>
+</apex:component>

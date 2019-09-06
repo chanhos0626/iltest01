@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>EVENT_ATTENDEE_TITLE</fullName>
+        <categories>EA</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>EVENT_ATTENDEE_TITLE</shortDescription>
+        <value>Title</value>
+    </labels>
+    <labels>
+        <fullName>TestComponentLabel</fullName>
+        <categories>CONFIG</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>TestComponentLabel</shortDescription>
+        <value>TEST 확인용 라벨입니다.</value>
+    </labels>
+    <labels>
+        <fullName>Trigger_Switch</fullName>
+        <categories>CONFIG</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Trigger_Switch</shortDescription>
+        <value>ON</value>
+    </labels>
+</CustomLabels>

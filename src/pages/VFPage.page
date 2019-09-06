@@ -1,0 +1,32 @@
+<apex:page showHeader="true" sidebar="true" controller="VFPageController" docType="html-5.0">
+    <apex:includeScript value="{!URLFOR($Resource.JSExternals,'dist/jquery-3.3.1.min.js')}"/>
+    <apex:sectionHeader id="test" title="test" subtitle="test"/>
+    <apex:form >        
+        <apex:input value="{!test0}"/>    
+        <apex:input value="{!test1}"/>   
+        <apex:input value="{!test2}"/>
+        <apex:commandButton action="{!check}" value="입력"/>
+        <apex:pageBlock title="AccList">
+            <apex:pageBlockTable value="{!accList}" var="a">
+                <apex:column headerValue="Name" value="{!a.Name}"></apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+        
+        <button onclick="stest()">
+            hi
+        </button>
+    
+    <script>
+    function stest(){
+        console.log('ttttt');
+    }
+    
+    </script>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        jQuery(document).ready(function() {
+            jQuery("#message").html("Hello from jQuery!");
+        });
+    </script>
+</apex:page>

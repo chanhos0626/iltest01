@@ -1,0 +1,21 @@
+<aura:component controller="BasicComponentController">
+    
+    <!--변수 선언[S]-->
+    <aura:attribute name="myVal" type="String" />
+    <aura:attribute name="message" type="String" default="Nice to meet you" description="none"/>
+    <!--변수 선언[E]-->
+    
+    <div>
+        Hello World
+    </div>
+    <h1>
+        <div>
+            {!v.message}
+        </div>
+    </h1>
+    <input type="text" value="{!v.message}"/>
+    <lightning:inputRichText value="{!v.myVal}" placeholder="Type something interesting"/>
+    <lightning:input type="date" label="Birthday" name="date" />
+    <lightning:input label="Name" name="myname" />
+
+</aura:component>

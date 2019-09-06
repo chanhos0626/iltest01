@@ -1,0 +1,90 @@
+<!--
+ @file           : CC_Customer_MapMapping
+ @path			: Customer > Tabs - Map Mapping
+ @description    : Customer에 연결된 Contact, Contact과 연결된 sdi인원들을 리스트로 출력
+ @author         : DKMBC - hyunkwan roh( nonoll )
+ @Additional modifiers : DKMBC - chanho choi
+ @Additional revision date : 2017-05-09 15:39
+ controller="CC_Customer_ManMapping"
+-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,force:hasRecordId,forceCommunity:availableForAllPageTypes" access="global" >
+    
+    <!-- [S] ltng:require -->
+    <!--js,jquery등 연결  afterScriptsLoaded="{!c.scriptsLoaded}" -->
+    <ltng:require scripts="{!($Resource.SDI_CRM_JS + '/dist/js/sdi.vendor.js')}"/>
+    <!-- [E] ltng:require -->
+    <!-- [S] aura:handler -->
+    <!--시작과 동시 contoller의 init 호출-->
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <!-- [E] aura:handler -->
+    
+    <!-- [S] aura:attribute -->
+    <!-- [D] UI 테스트용 더미 데이터 -->
+    <!--init에서 전달받은 값 입력 영역
+    <aura:attribute name="v_title" type="Contact" default="null"/>
+    <aura:attribute name="v_test" type="String" default="null"/>
+    <aura:attribute name="v_isReady" type="Boolean" default="false" />-->
+    <!-- [E] aura:attribute -->
+    <aura:attribute name="Test" type="Object[]" default="[
+            {Name:'',AccountId:'',Id:'',
+             Department:'',Title:'',Contact_Level__c:'',
+             ReportsToId:'',dp_order__c:'',Retired__c:'',My_Step__c:'' }]"/>
+    <!-- [S] lightning:spinner 
+ <lightning:spinner aura:id="spinner" 
+      class="slds-is-fixed"
+      variant="brand"
+      size="large"
+      alternativeText="Loading" />-->
+    <!-- [E] lightning:spinner -->
+    
+    <!-- [S] CC_Customer_MapMapping Component -->
+    
+    <div aura:id="CC_Customer_MapMapping" data-component-id="CC_Customer_MapMapping">
+        <div class="c-container">
+            <lightning:layout >
+                <lightning:layoutItem class="slds-scrollable--x" flexibility="auto" size="12">
+                    <table class="slds-table slds-table--bordered slds-tree slds-table--tree"
+                           role="treegrid" aria-readonly="true">
+                        <thead class="thead--color">
+                            <tr class="slds-text-title--caps">
+                                <th class="slds-cell-buffer--left" scope="col">
+                                    <div class="slds-truncate" title="Customer Name">Customer Name</div>
+                                </th>
+                                <th class="slds-cell-shrink title" scope="col">
+                                    <div class="slds-truncate" title="Title">Department</div>
+                                </th>
+                                <th class="slds-cell-shrink SDI" scope="col">
+                                    <div class="slds-truncate" title="SDI">Title</div>
+                                </th>
+                                <!--<th class="slds-cell-shrink" scope="col">
+                                    <div class="slds-truncate" title="SDI Title">SDI Title</div>
+                                </th>-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <aura:iteration items="{!v.Test}" var="item">
+                                <tr Id="{!item.Id}" name="{!item.AccountId}" 
+                                    data-Id="{!item.Id}"
+                                    aria-level="{!item.Contact_Level__c}"
+                                    data-account-id="{!item.AccountId}"
+                                    data-parent-id="{!item.ReportsToId}"
+                                    data-My-Step-id="{!item.My_Step__c}"
+                                    data-depth="{!item.Contact_Level__c}" 
+                                    data-depth2="{!item.Contact_Level__c}"
+                                    onclick="{!c.depth}">
+                                    <th name="{!item.AccountId}" style="{!'padding-left:calc(('+item.Contact_Level__c+' + 1)*30px)'}" onclick="depth" >
+                                        <div class="triangle" Id="{!item.Id}"></div>
+                                        <span>{!item.Name}</span>
+                                    </th>
+                                    <td name="{!item.AccountId}">{!item.Department}</td>
+                                    <td name="{!item.AccountId}">{!item.Title}</td>
+                                </tr>
+                            </aura:iteration>
+                        </tbody>
+                    </table>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </div>
+    </div>
+    <!-- [E] CC_Customer_MapMapping Component -->
+</aura:component>

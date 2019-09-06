@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>KAL Opportunity</value>
+    </caseValues>
+    <fields>
+        <label><!-- Departure Date --></label>
+        <name>Departure_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- KAL Event Nature --></label>
+        <name>KAL_Event_Nature__c</name>
+    </fields>
+    <fields>
+        <label><!-- Remarks --></label>
+        <name>Remarks__c</name>
+    </fields>
+    <fields>
+        <label><!-- Route --></label>
+        <name>Route__c</name>
+    </fields>
+    <fields>
+        <label><!-- Total number of people --></label>
+        <name>Total_number_of_people__c</name>
+    </fields>
+    <fields>
+        <label><!-- test --></label>
+        <name>test__c</name>
+    </fields>
+    <layouts>
+        <layout>KAL Opportunity Layout</layout>
+        <sections>
+            <label><!-- Custom Links --></label>
+            <section>Custom Links</section>
+        </sections>
+        <sections>
+            <label><!-- Fields --></label>
+            <section>Fields</section>
+        </sections>
+        <sections>
+            <label><!-- 행사등록 --></label>
+            <section>행사등록</section>
+        </sections>
+    </layouts>
+</CustomObjectTranslation>

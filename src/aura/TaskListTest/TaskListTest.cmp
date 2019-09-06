@@ -1,0 +1,77 @@
+<aura:component controller="ContactController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="ObjectName" type="String" default=""/>
+    <aura:attribute name="ListViewLabel" type="String" default=""/>
+    <aura:attribute name="ListHeaderLabel" type="sObject" default=""/>
+    <aura:attribute name="mycolumns" type="List" default="[]"/>
+    <aura:attribute name="Result" type="sObject" default=""/>
+    <aura:attribute name="FilterList" type="sObject" />
+    <aura:attribute name="FilterId" type="String" default="" />
+    <aura:attribute name="test" type="String" default="item.Name" />
+    <aura:attribute name="sortedBy" type="String" default="Name"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc"/>
+    <aura:attribute name="options" type="List" default="[{'label': 'Id', 'value': 'Id'}, {'label': 'Name', 'value': 'Name'}]"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+
+    <div aura:id="T_CC_Task" data-component-id="T_CC_Task">
+        <div class="c-container">
+            <div class="page-header slds-page-header slds-page-header_object-home">
+                <div class="slds-grid">
+                    <div class="slds-col slds-has-flexi-truncate">
+                        <div class="slds-media slds-no-space slds-grow">
+                            <div class="slds-media__figure">
+                                <lightning:icon iconName="standard:task" size="medium" />
+                            </div>
+                            <div class="slds-media__body">
+                                <div class="filter">
+                                    <ui:outputText class="floatsetting" value="Task"/>
+                                    <div class="clearsetting floatsetting filterDetail" onclick="{!c.filterCilck}">
+                                        <h1 class="clearsetting floatsetting slds-page-header__title slds-m-right__small slds-align-middle slds-truncate labelwidth">{!v.ListViewLabel}</h1>
+                                        <lightning:icon class="floatsetting downicons" iconName="utility:down" size="xx-small" />
+                                    </div>
+                                    <div aura:Id="filterMain" class="filterMain" data-class-name="filterMain">
+                                        <aura:iteration items="{!v.FilterList}" var="f">
+                                            <div onclick="{!c.test}" aura:Id="{!f.Name}" name="{!f.Name}" class="FilterMenuList" data-Id="{!f.Id}" data-DeveloperName="{!f.DeveloperName}"  data-Name="{!f.Name}" >
+                                                <div aura:id="checkbox" class="{!f.Id+' floatsetting checknone'}">
+                                                    <lightning:icon class="checkboxIcon" iconName="utility:check"  size="xx-small" />
+                                                </div>
+                                                <div class="floatsetting">
+                                                        {!f.Name}
+                                                </div>
+                                            </div>
+                                        </aura:iteration>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-media__body2">
+                                <button class="slds-button slds-button_neutral" onclick="{!c.SearchFilter}">Search</button>
+                                <button class="slds-button slds-button_neutral" onclick="{!c.createRecord}">New</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slds-grid">
+                    <div class="slds-col slds-align-bottom">
+                        <p class="slds-text-body_small">{!v.v_BO.length} items • {!v.v_BO[0].What.Name}</p>
+                    </div>
+                </div>
+            </div>
+            <div aura:id="SearchFilter" class="SearchFilter">
+                <lightning:combobox aura:id="combobox" class="combobox" variant="label-hidden" name="progress" label="" value="Name" placeholder="Select Progress" options="{! v.options }" />
+                <lightning:input aura:id="filterText" class="filterText" variant="label-hidden" name="input1" label="" />
+                <button class="slds-button slds-button_neutral" onclick="{!c.SearchFIlterClick}" >Filter Search</button>
+            </div>
+            <div class="page-main">
+               <lightning:datatable data="{! v.Result }"
+                                     columns="{! v.mycolumns }"
+                                     keyField="Id"
+                                     hideCheckboxColumn="true"
+                                    onsort="{!c.updateColumnSorting}"
+                                    sortedBy="{!v.sortedBy}"
+                                    sortedDirection="{!v.sortedDirection}" />
+
+            </div>
+        </div>
+    </div>
+</aura:component>

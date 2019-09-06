@@ -1,0 +1,17 @@
+<!--
+ - Created by chanho on 2019-01-17.
+ -->
+<apex:page standardController="Account" extensions="AccountTCListPageController" recordSetVar="Accounts" tabStyle="Account" sidebar="false">
+    <apex:slds />
+    <apex:form>
+        <apex:pageBlock>
+            <apex:pageBlock>
+                <apex:commandButton value="AccountTCListPage" action="{!GoToAccountTCListPage}"/>
+                <apex:commandButton value="AccountTCListPage02" action="{!GoToAccountTCListPage02}"/>
+                <apex:commandButton value="AccountTCListPage03" action="{!GoToAccountTCListPage03}"/>
+                <apex:commandButton value="AccountTCListPage04" action="{!GoToAccountTCListPage04}"/>
+            </apex:pageBlock>
+        </apex:pageBlock>
+    </apex:form>
+    <apex:enhancedList type="Account" height="300" rowsPerPage="10" id="YourListViewId" />
+</apex:page>

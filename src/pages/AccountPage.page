@@ -1,0 +1,19 @@
+<apex:page showHeader="true" sidebar="true" controller="AccountPageController">
+	{!str}
+    <c:AccountComponentController />
+    <apex:pageBlock >
+        <apex:pageBlockButtons >
+            <apex:form >
+                <apex:commandButton value="refresh" action="{!refreshAccount}" reRender="acTable"/>
+            </apex:form>
+        </apex:pageBlockButtons>	
+        <apex:pageBlockTable id="acTable" value="{!acList}" var="ac">
+            <apex:column headerValue="Id" value="{!ac.Id}"/>
+            <!-- <apex:column headerValue="Name" value="{!ac.Name}" onclick="location.href='/apex/AccountList?Id={!ac.Id}'"/> -->
+            <apex:column headerValue="Name">
+                <a href="/apex/AccountList?Id={!ac.Id}">{!ac.Name}</a>
+            </apex:column>
+            <apex:column headerValue="Phone" value="{!ac.Phone}"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

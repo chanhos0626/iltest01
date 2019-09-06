@@ -1,0 +1,111 @@
+/**
+ * Created by DKBMC-ChoiChanHo on 2018-08-22.
+ */
+.THIS{
+    line-height: 1 !important;
+}
+.THIS .slds-media__body{
+    float:left !important;
+}
+.THIS .filterDetail{
+    /*width:20em;*/
+    /*width:15%;*/
+    max-width: 30%;
+    min-width: 15%;
+}
+.THIS .filterDetail .labelwidth{
+    width:80%;
+}
+.THIS .filterMain{
+    display:none;
+    /*width:100px;
+    height:100px;*/
+    width:20em;
+    height:auto;
+    position: absolute;
+    background: white;
+    z-index: 100;
+    top: 4em;
+    overflow-y:auto;
+    border: 1px solid #b6b6b6;
+    border-radius: 5px;
+    background-color: #ffffff;
+    -webkit-transform: translate3d(0,0,0);
+
+}
+
+.THIS .FilterMenuList{
+    list-style-type: none;
+    height: 3em;
+    padding: 5%;
+}
+.THIS .FilterMenuList:hover {
+    background-color: rgb(243, 242, 242);
+}
+.THIS .FilterMenuList a{
+    padding-top: 5%;
+}
+.THIS .FilterShow{
+    display:block !important;
+}
+.THIS .filter .floatsetting{
+    float:left !important;
+}
+.THIS .filter .clearsetting{
+     clear:left !important;
+ }
+.THIS .FilterMenuList .floatsetting{
+  float:left !important;
+  padding-right:5% !important;
+}
+.THIS .filter .slds-page-header__title{
+    font-weight: bolder !important;
+    margin-right: 1em !important;
+}
+.THIS .filter .downicons{
+    padding-top: 1.5%;
+}
+.THIS lightning-icon.checkboxIcon > lightning-primitive-icon > svg > use{
+    fill: rgb(0, 112, 210) !important;
+}
+.THIS .checknone{
+    /*display:none !important;*/
+    visibility:hidden !important;
+}
+.THIS .slds-media__body2{
+    float:right !important;
+}
+.THIS .page-header {
+    border: 1px solid #d8dde6;
+}
+
+.THIS .SearchFilter{
+    /*visibility:hidden !important;*/
+    display:none !important;
+}
+.THIS .SearchFilterShow{
+    /*visibility:visible !important;*/
+        display: block!important;
+        /* border: 1px solid red; */
+        height: 5em;
+        padding: 1rem;
+        border: 1px solid #d8dde6;
+        background: rgb(243, 242, 242);
+        margin-top: 1em;
+        border-radius: .25rem;
+}
+.THIS .combobox{
+    float:left;
+    margin-right:1rem;
+}
+.THIS .filterText{
+    float:left;
+    margin-right:1rem;
+}
+.THIS .page-main {
+    border: 1px solid #d8dde6;
+    height:50em;
+}
+.THIS tr.slds-hint-parent{
+    height : 2.5em;
+}

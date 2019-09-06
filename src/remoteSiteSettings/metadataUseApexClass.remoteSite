@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RemoteSiteSetting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Apex Class 파일에서 Metadata 접근을위해 사용</description>
+    <disableProtocolSecurity>false</disableProtocolSecurity>
+    <isActive>true</isActive>
+    <url>https://chikpale-dev-ed.my.salesforce.com</url>
+</RemoteSiteSetting>

@@ -1,0 +1,464 @@
+<aura:component controller="LightningCheckClass" implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <!--
+    사용된 controller 관한 설명
+    controller는 사용하고자 하는 Apex Class에 대한 선언을 하는것
+
+    추가.
+    Visualforce에서는 controller 외에 StandardController로 표준 object에 대한 api를 제공하였으나 Lightning Component 에서는 사용하지 않습니다.
+    대신으로 Lightning Data Service를 사용하기 시작하였습니다.
+    Lightning Data Service는 https://trailhead.salesforce.com/en/content/learn/modules/lightning_data_service 에서 확인 할 수 있습니다.
+    -->
+
+    <!--
+    사용된 Implements 관한 설명
+    force:appHostable : Lightning Experience 또는 Salesforce 모바일 앱에서 탐색 요소로 사용할 구성 요소를 만듭니다.(관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_devconsole_configs.htm?search_text=implements)
+    flexipage:availableForAllPageTypes : 구성 요소(Component)가 레코드 페이지와 다른 유형의 페이지 모두에서 사용 가능한 경우에 화면을 표시합니다. (관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_config_for_app_builder_record_home.htm?search_text=flexipage:availableForAllPageTypes)
+    forceCommunity:availableForAllPageTypes : 커뮤니티 작성기(Community Builder)에서 사용하려면 implements에 선언되어야 합니다.(관련 문서 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/components_config_for_builder.htm?search_text=forceCommunity:availableForAllPageTypes)
+    -->
+
+    <!-- attributes -->
+    <!-- 데이터 저장용 attribute 생성 -->
+    <aura:attribute name="data" type="sObject"/>
+    <aura:attribute name="TestRecordId" type="String" default="a097F00000DooL6QAJ"/>    
+    <aura:attribute name="TestRecordId2" type="String" default=""/>    
+    <aura:attribute name="TestRecordName" type="String" default="vt-0000001"/>
+    <aura:attribute name="columns" type="List"/>
+    <aura:attribute name="selectedValue" type="String"/> 
+    <aura:attribute name="errors" type="Object" default="[]"/>
+    <aura:attribute name="draftValues" type="Object" default="[]"/>
+    <aura:attribute name="silsub" type="String" default="확인중입니다."/>
+    <aura:attribute name="options" type="List" access="PRIVATE" default="[{ id: 'test_test__c', label: 'test test', selected: true }, { id: 'Email__c', label: 'Email' }, { id: 'Url', label: 'Url__c' }]"/>
+    <aura:attribute name="silsub2" type="List" default="[{key:'te1', value:'test 중'},{key:'te2', value:'test2 중'},{key:'te3', value:'test3 중'}]"/>
+    <!-- aura:registerEvent : Lightning Component Event에 값 전달하기 위해 사용-->
+    <aura:registerEvent name="cmpEvent" type="c:LightningCheckEvent"/>    
+
+    <!-- Imports : lightning component library 에서 demo용으로 사용됨-->
+    <!-- <aura:import library="lightningcomponentdemo:mockdataFaker" property="mockdataLibrary"/>-->
+
+    <!-- 스크립트 파일 사용시 사용 -->
+    <!-- 현 component 및 sub component에서는 사용되지 않았습니다. -->
+    <!--<ltng:require scripts="{!($Resource.SDI_CRM_JS + '/dist/js/sdi.vendor.js')}"/>-->
+
+    <!-- handlers -->
+    <!-- 해당 component 활성화시 실행-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - label </h1>        
+    </div>
+
+    <div aura:id="layouts">
+        {!v.silsub}<br/>
+        <lightning:input  name="test" type="text" value="{!v.silsub}"/>
+         <lightning:select aura:id="test001" name="select1" label="How many tickets?" required="true" onchange="{!c.test001}">
+             <aura:iteration items="{!v.silsub2}" var="sil">
+             	<option value="{!sil.value}">{!sil.key}</option>
+             </aura:iteration>
+        </lightning:select>
+    </div>        
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - label </h1>        
+    </div>
+    <div aura:id="layouts">
+        <div>
+            {!$Label.c.TestComponentLabel}<br/>
+            <!--
+                $A.get("$Label.namespace.labelName")
+                namespace의 경우 classic에서만 현재 생성이 가능하며 아래의 url에 생성하는 방법이 작성되어있습니다.
+                그리고 c의 경우 default로 작동된다고 합니다.
+                https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/namespaces_creating.htm
+            -->
+            <button class="slds-button slds-button_neutral" onclick="{!c.labelbutton}">Test Label</button>
+        </div>
+    </div>
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - layout &#38; input </h1>        
+    </div>
+    <div aura:id="layouts">
+        <!--recordId에 들어오는 값에 따라 화면에 표시-->
+        <lightning:recordViewForm recordId="{!v.TestRecordId}" objectApiName="vail_test__c">
+            <div class="slds-box slds-text-heading_medium">
+                {!v.TestRecordName} is Data
+            </div>
+            <lightning:layout horizontalAlign="none">
+                <lightning:layoutItem flexibility="auto" padding="around-small"><!--test__c-->                    
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Name" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Start_Date__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Email__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="AccNumber__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="link__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="test__c" /></lightning:layoutItem>
+                </lightning:layoutItem>
+                <lightning:layoutItem flexibility="auto" padding="around-small">
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="test_test__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="End_Date__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Account__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Phone_Number__c" /></lightning:layoutItem>
+                    <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:outputField fieldName="Key__c" /></lightning:layoutItem>
+                </lightning:layoutItem>
+            </lightning:layout>
+        </lightning:recordViewForm>
+        <lightning:layout horizontalAlign="space">
+            <!--표준 Account의 Link처럼 작성되며 url이 https가 지원되어야 합니다.-->
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <lightning:formattedUrl value="http://www.google.com/maps" tooltip="Go to Google Maps" label="Google Maps" target="_blank" />
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <lightning:formattedUrl value="/lightning/page/home" tooltip="Go to Salesforce Home" label="Salesforce Home" target="_blank" />
+            </lightning:layoutItem>
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <lightning:formattedUrl value="https://map.naver.com/" tooltip="Go to Naver Maps" label="Naver Maps" target="_blank" />
+            </lightning:layoutItem>
+        </lightning:layout>
+        <lightning:layout  horizontalAlign="none">
+            <lightning:layoutItem flexibility="auto" padding="around-small">
+                <h2 class="header">Basic Input Date</h2>
+                <!--lightning component library에 존재하는 input 과 관련된것을 사용-->
+                <lightning:input type="date" name="input1" label="Enter a date" />
+                <lightning:input type="date" name="input2" label="Date field with a predefined value" value="2017-09-07"/>
+                <lightning:input type="date" name="input3" label="Date field with ISO8601 formatted value" value="2017-09-07T00:00:00Z"/>
+                <lightning:input type="date" name="input4" label="Date field with placeholder" placeholder="type here..."/>
+                <div>
+                    <!--검색 용도로 작업을 하였습니다.-->
+                    <div class="slds-size_1-of-8 slds-float_left">
+                       	<lightning:select name="selectKey" label="Field Name" aura:id="selectKey" value="{!v.selectedValue}">
+                            <!--attribute중 options에 들어있는 값으로 출력-->
+                            <aura:iteration items="{!v.options}" var="option">
+                                <option text="{!option.label}" value="{!option.id}" selected="{!option.selected}"/>
+                            </aura:iteration>
+                        </lightning:select> 
+                    </div>
+                    <!-- 입력후 enter를 처야 검색가능-->
+                    <div class="slds-size_7-of-8 slds-float_left" onkeyup="{! c.handleKeyUp }">
+                        <lightning:input aura:id="enter-search" name="enter-search" label="Search when user hits the 'enter' key" type="search" />
+                    </div>
+                </div>
+                
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+    
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - Event Test </h1>        
+    </div>
+    <div aura:id="EventNew">
+        <!--
+            예제간의 차이점?
+
+            예제1 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/events_application_example.htm
+
+            예제2 : https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/events_component_example.htm
+        -->
+        <lightning:button label="Click here to fire a component event" onclick="{!c.fireComponentEvent}" />
+        <div style="height:0rem !important">
+        	<c:LightningCheckSubComponent/>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - datatable</h1>        
+    </div>
+    <div aura:id="datatables"> 
+        <!--lightning:datatable : Lightning ComponentLibrary에 있는 datatable을 가져다 사용한 내역입니다.
+            errors : 에러에 대한 처리는 하지 않았습니다.
+        -->       
+        <lightning:datatable columns="{! v.columns }" data="{! v.data }" keyField="id" errors="{! v.errors }" draftValues="{! v.draftValues }" onrowaction="{! c.handleRowAction }" onsave="{! c.handleSaveEdition }"/>
+    </div><br/>
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">lightning Component Developer Guide - listView</h1> 
+    </div>
+    <div aura:id="listView">
+        <!--lightning:listView : Lightning ComponentLibrary에 있는 listView를 가져다 사용한 내역입니다. --> 
+        <lightning:listView aura:id="listViewValiTest" objectApiName="vail_test__c" listName="test" rows="5" showSearchBar="true" showActionBar="true" enableInlineEdit="true" showRowLevelActions="true" />
+    </div><br/>
+    
+    <div class="slds-p-around_medium">
+        <h1 class="slds-text-heading_large">Salesforce lightning Design System - datatable</h1> 
+    </div>
+    <div aura:id="datatable2">
+        <!-- slds에 존재하는 datatable을 가져와 화면에 넣은 영역입니다. --> 
+        <!-- svg 태그를 lightnig component에서 사용하기 위해서는 lightning component svg에 대한 처리가 필요합니다. --> 
+        <div class="slds-table_edit_container slds-is-relative">
+            <table aria-multiselectable="true" class="slds-table slds-no-cell-focus slds-table_bordered slds-table_edit slds-table_fixed-layout slds-table_resizable-cols" role="grid" style="width: 66.75rem;">
+                <thead>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-title_caps" scope="col" style="width: 3.75rem;">
+                            <div class="slds-truncate slds-assistive-text" title="Errors">Errors</div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col" style="width: 2rem;">
+                            <span id="column-group-header" class="slds-assistive-text">Choose a row</span>
+                            <div class="slds-th__action slds-th__action_form">
+                                <div class="slds-checkbox">
+                                    <input type="checkbox" name="options" id="checkbox-17" tabindex="-1" aria-labelledby="check-select-all-label column-group-header" value="checkbox-17" />
+                                    <label class="slds-checkbox__label" for="checkbox-17" id="check-select-all-label">
+                                        <span class="slds-checkbox_faux"></span>
+                                        <span class="slds-form-element__label slds-assistive-text">Select All</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </th>
+                        <th aria-label="Name" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Name">Name</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon  slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-29" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Account Name" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Account Name">Account Name</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon  slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Account Name column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-30" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Close Date" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Close Date">Close Date</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon  slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Close Date column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-31" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Stage" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Stage">Stage</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon  slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Stage column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-32" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Confidence" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Confidence">Confidence</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon  slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Confidence column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-33" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Amount" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Amount">Amount</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Amount column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-34" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th aria-label="Contact" aria-sort="none" class="slds-text-title_caps slds-is-resizable slds-is-sortable" scope="col" style="width: 8.75rem;">
+                            <a class="slds-th__action slds-text-link_reset" href="javascript:void(0);" role="button" tabindex="-1">
+                                <span class="slds-assistive-text">Sort by: </span>
+                                <div class="slds-grid slds-grid_vertical-align-center slds-has-flexi-truncate">
+                                    <span class="slds-truncate" title="Contact">Contact</span>
+                                    <span class="slds-icon_container slds-icon-utility-arrowdown">
+                                        <!--<svg class="slds-icon slds-icon-text-default slds-is-sortable__icon " aria-hidden="true">
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#arrowdown" />
+                                        </svg>-->                                        
+                                        <lightning:icon class="slds-icon slds-icon-text-default slds-is-sortable__icon slds-icon_xx-small totaliconsize" iconName="utility:arrowdown"/>
+                                    </span>
+                                </div>
+                            </a>
+                            <div class="slds-resizable">
+                                <input aria-label="Contact column width" class="slds-resizable__input slds-assistive-text" id="cell-resize-handle-35" max="1000" min="20" tabindex="-1" type="range" />
+                                <span class="slds-resizable__handle">
+                                    <span class="slds-resizable__divider"></span>
+                                </span>
+                            </div>
+                        </th>
+                        <th class="slds-text-title_caps" scope="col" style="width: 3.25rem;">
+                            <div class="slds-truncate slds-assistive-text" title="Actions">Actions</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr aria-selected="false" class="slds-hint-parent">
+                        <td class="slds-cell-edit slds-cell-error" role="gridcell">
+                            <button id="error-01" class="slds-button slds-button_icon slds-button_icon-error slds-m-horizontal_xxx-small slds-hidden" aria-hidden="true" tabindex="-1" title="Item 1 has errors">
+                                <!--<svg class="slds-button__icon" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#error" />
+                                </svg>-->                                
+                                <lightning:icon class="slds-button__icon " iconName="utility:error"/>
+                                <span class="slds-assistive-text">Item 1 has errors</span>
+                            </button>
+                            <span class="slds-row-number slds-text-body_small slds-text-color_weak"></span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <div class="slds-checkbox">
+                                <input type="checkbox" name="options" id="checkbox-01" tabindex="-1" aria-labelledby="check-button-label-01 column-group-header" value="checkbox-01" />
+                                <label class="slds-checkbox__label" for="checkbox-01" id="check-button-label-01">
+                                    <span class="slds-checkbox_faux"></span>
+                                    <span class="slds-form-element__label slds-assistive-text">Select item 1</span>
+                                </label>
+                            </div>
+                        </td>
+                        <th class="slds-cell-edit" scope="row" tabindex="0">
+                            <span class="slds-grid slds-grid_align-spread"><a class="slds-truncate" href="javascript:void(0);" id="link-01" tabindex="-1" title="Acme - 1,200 Widgets">Acme - 1,200 Widgets</a>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Name of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Name of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </th>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="Acme">Acme</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Account Name of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Account Name of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="4/10/15">4/10/15</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Close Date of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Close Date of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="Value Proposition">Value Proposition</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Stage of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Stage of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td aria-readonly="true" class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="30%">30%</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" disabled="" tabindex="-1" title="Edit Confidence of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_lock slds-button__icon_small" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#lock" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_lock slds-icon_xx-small totaliconsize" iconName="utility:lock"/>
+                                    <span class="slds-assistive-text">Edit Confidence of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="$25,000,000">$25,000,000</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Amount of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Amount of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <span class="slds-grid slds-grid_align-spread">
+                                <span class="slds-truncate" title="jrogers@acme.com">jrogers@acme.com</span>
+                                <button class="slds-button slds-button_icon slds-cell-edit__button" tabindex="-1" title="Edit Contact of Acme - 1,200 Widgets">
+                                    <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_edit" aria-hidden="true">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#edit" />
+                                    </svg>-->
+                                    <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_edit slds-icon_xx-small totaliconsize" iconName="utility:edit"/>
+                                    <span class="slds-assistive-text">Edit Contact of Acme - 1,200 Widgets</span>
+                                </button>
+                            </span>
+                        </td>
+                        <td class="slds-cell-edit" role="gridcell">
+                            <button class="slds-button slds-button_icon slds-button_icon-border-filled" aria-haspopup="true" tabindex="-1" title="More actions for Acme - 1,200 Widgets">
+                                <!--<svg class="slds-button__icon slds-button__icon_hint slds-button__icon_small" aria-hidden="true">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#down" />
+                                </svg>-->
+                                <lightning:icon class="slds-button__icon slds-button__icon_hint slds-button__icon_small slds-icon_xx-small totaliconsize" iconName="utility:down"/>
+                                <span class="slds-assistive-text">More actions for Acme - 1,200 Widgets</span>
+                            </button>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aura:component>

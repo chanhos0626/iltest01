@@ -1,0 +1,23 @@
+<apex:page showHeader="true" sidebar="true" standardController="Account" extensions="AccountListExtension">
+    <apex:pageBlock >
+        <apex:pageBlockButtons >
+            <apex:form >
+                <apex:commandButton action="{!edit}" id="editButton" value="Edit"/>
+            </apex:form>            
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Id</apex:outputLabel>
+                <apex:outputField value="{!Account.Id}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Name</apex:outputLabel>
+                <apex:outputField value="{!Account.Name}"/>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Phone</apex:outputLabel>
+                <apex:outputField value="{!Account.Phone}"/>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:page>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CHN</fullName>
+        <default>true</default>
+        <label>CHN</label>
+    </customValue>
+    <customValue>
+        <fullName>JPN</fullName>
+        <default>false</default>
+        <label>JPN</label>
+    </customValue>
+    <customValue>
+        <fullName>SEA</fullName>
+        <default>false</default>
+        <label>SEA</label>
+    </customValue>
+    <customValue>
+        <fullName>AME</fullName>
+        <default>false</default>
+        <label>AME</label>
+    </customValue>
+    <masterLabel>KAL_route</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

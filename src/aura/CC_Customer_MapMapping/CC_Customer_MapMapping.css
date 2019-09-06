@@ -1,0 +1,14 @@
+.THIS {
+}
+.THIS .triangle{
+    border-left: 0.5em solid rgba(255, 255, 255, 0);
+    border-top: 0.5em solid blue;
+    border-right: 0.5em solid rgba(255, 255, 255, 0);
+    float: left;
+    margin: 0.5em;
+}
+.THIS .spin{
+    -ms-transform: rotate(-90deg); 
+    -webkit-transform: rotate(-90deg);  
+    transform: rotate(-90deg);
+}

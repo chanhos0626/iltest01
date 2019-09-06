@@ -1,0 +1,59 @@
+<aura:component controller="LightningCheckClass" implements="flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" >
+    <!-- 값 담을 Attribute 생성-->
+    <aura:attribute name="VeliId" type="String"/>
+    <!-- 이벤트 발생시 action 발생-->
+    <aura:handler event="c:LightningCheckEvent" action="{!c.handleComponentEvent}"/>
+    <!-- 화면 구성[S]-->
+    <!-- slds-hide : SLDS에서 제공하는 클래스로 자주 사용되는 클래스. 반대로는 slds-show 혹은 클래스를 제거하여 사용 -->
+    <div aura:id="modaltest" class="demo-only slds-hide" style="height: 640px;">
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- 
+                    lightning:recordEditForm : lightning component library에 있는 Component
+                    https://developer.salesforce.com/docs/atlas.en-us.lightning.meta/lightning/lightning_base_variants.htm?search_text=lightning:record
+                    에 해당 컴포넌트에 대한 설명이 있습니다.
+                    수정 및 생성에 사용되며 뷰 용도로는 lightning:recordViewForm이 존재
+                -->
+                <lightning:recordEditForm aura:id="editForm" recordId="{!v.VeliId}" objectApiName="vail_test__c">
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick="{!c.hideModal}">
+                            <lightning:icon class="slds-button__icon slds-button__icon_large" iconName="utility:close"/>
+                            <span class="slds-assistive-text">Close</span>
+                        </button> 
+                        <aura:if isTrue="{! or(v.VeliId == null , v.VeliId == '' , v.VeliId == null )}">
+                            <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Vail Test</h2>    
+                            <aura:set attribute="else">
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Edit Vail Test</h2>
+                            </aura:set>
+                        </aura:if>                    
+                    </header>              
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">                        
+                        <lightning:layout horizontalAlign="none">
+                            <lightning:layoutItem flexibility="auto" padding="around-small">
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Name" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Start_Date__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Email__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="AccNumber__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="link__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="test__c" /></lightning:layoutItem>
+                            </lightning:layoutItem>
+                            <lightning:layoutItem flexibility="auto" padding="around-small">
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="test_test__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="End_Date__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Account__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Phone_Number__c" /></lightning:layoutItem>
+                                <lightning:layoutItem flexibility="auto" padding="around-small"><lightning:inputField fieldName="Key__c" /></lightning:layoutItem>
+                            </lightning:layoutItem>
+                        </lightning:layout>              
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_neutral" onclick="{!c.hideModal}">Cancel</button>
+                        <button class="slds-button slds-button_brand" type="submit" onclick="{!c.handlesubmit}">Save</button>
+                    </footer>
+                </lightning:recordEditForm>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </div>
+    <!-- 화면 구성[E]-->
+</aura:component>
